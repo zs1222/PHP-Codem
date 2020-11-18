@@ -1,0 +1,196 @@
+<?php
+ session_start();
+
+ include("connect.php");
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/all.min.css">
+
+    <script defer src="script.js"></script>
+    
+    
+<title>Homepage</title>
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+
+<div class="btn-group" role="group" aria-label="First group">
+        <a class="fas fa-home fa-3x" style = "color: white" href="patienthome.php"></a>
+  </div>
+     
+        <div class="btn-group" role="group" aria-label="Second group">
+        <a class="fas fa-tshirt fa-3x" style = "color: white" href="clothing.php"></a>
+        </div>
+        </nav>
+       
+        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+        <div class="btn-group" role="group" aria-label="Third group">
+        <a class="fas fa-users fa-3x" style = "color: white" href="addcarer.php"></a>
+        </div>
+      
+        <div class="btn-group" role="group" aria-label="Fourth group">
+        <a class="fas fa-power-off fa-3x" style = "color: white" href="logout.php"></a>
+        </div>
+        </nav>
+
+<hr>
+
+<div class="clock">
+    <div class="hand hour" data-hour-hand></div>
+    <div class="hand minute" data-minute-hand></div>
+    <div class="hand second" data-second-hand></div>
+    <div class="number number1">1</div>
+    <div class="number number2">2</div>
+    <div class="number number3">3</div>
+    <div class="number number4">4</div>
+    <div class="number number5">5</div>
+    <div class="number number6">6</div>
+    <div class="number number7">7</div>
+    <div class="number number8">8</div>
+    <div class="number number9">9</div>
+    <div class="number number10">10</div>
+    <div class="number number11">11</div>
+    <div class="number number12">12</div>
+  </div>
+
+  <br>
+        
+<?php
+ if(isset ($_SESSION['firstname'])) {
+    // $time variable is set to the current hour in the 24 hour clock format 
+    $time = date("H");
+    // Sets the $timezone variable according to the current timezone 
+    $timezone = date("Europe/Dublin");
+    // If the time is less than 1200 hours, show good morning and then the firstname of the person logged in 
+    if ($time <= "12") {
+        echo "<h2 class='text-center font-weight-bold'><span style='color:white'>Good Morning {$_SESSION['firstname']}!</h1>";
+    } else
+    // If the time is greater than or equal to 1200 hours but less than 1700 hours, show good afternoon and the firstname of the person logged in 
+    if ($time > "12" && $time <= "17") { 
+        echo "<h2 class='text-center font-weight-bold'><span style='color:white'>Good Afternoon {$_SESSION['firstname']}!</h1>";
+    } else
+    // If the time is between or equal to 1700 and 1900 hours, show good evening and the firstname of the person logged in 
+    if ($time > "17" && $time <="20") {
+        echo "<h2 class='text-center font-weight-bold'><span style='color:white'>Good Evening {$_SESSION['firstname']}!</h1>";
+    } else
+    // If the time is greater than or equal to 1900 hours, show good night and the firstname of the person logged in. 
+    if ($time > "20") {
+        echo "<h2 class='text-center font-weight-bold'><span style='color:white'>Good Night {$_SESSION['firstname']}!</h1>";
+    }
+
+ }
+    ?>
+
+    <br>
+    <?php
+    // Gets the day of the week
+    date('w'); 
+
+    if(date('w') == 0){
+        echo "<h4 class = 'text-center font-weight-bold'><span style='color:white'>Today is Sunday.</h3>";
+    }else if(date('w') == 1){
+        echo "<h4 class = 'text-center font-weight-bold'><span style='color:white'>Today is Monday.</h3>";
+    }else if(date('w') == 2){
+        echo "<h4 class = 'text-center font-weight-bold'><span style='color:white'>Today is Tuesday.</h3>";
+    }else if (date('w') == 3){
+        echo "<h4 class = 'text-center font-weight-bold'><span style='color:white'>Today is Wednesday.</h3>";
+    }else if (date('w') == 4){
+        echo "<h4 class = 'text-center font-weight-bold'><span style='color:white'>Today is Thursday.</h3>";
+    }else if (date('w') == 5){
+        echo "<h4 class = 'text-center font-weight-bold'><span style='color:white'>Today is Friday.</h3>";
+    }else if (date('w') == 6){
+        echo "<h4 class = 'text-center font-weight-bold'><span style='color:white'>Today is Saturday.</h3>";
+    }
+    ?>
+
+<br>
+
+<?php
+// Gets the current date
+$getdate = date("Y-m-d");
+
+// Converts US date format to European date format
+$timestamp = strtotime($getdate); 
+$new_date = date('d-m-Y', $timestamp);
+
+echo "<h4 class = 'text-center font-weight-bold'><span style='color:white'>$new_date </h3>";
+?>
+<br>
+<div class="weath-container">
+         
+            <div class="weather-title">
+                <p>Today's weather</p>
+            </div>
+            
+            <div class="notification">
+            </div>
+           
+            
+        <div class="weather-container">
+           
+            <div class="weather-icon">
+                <img src="icons/unknown.png" alt="">
+              </div> 
+              
+              <div class="temperature-value">
+                  <p>- °<span>C</span></p>
+              </div>
+
+              <div class="temperature-description">
+                <p>-</p>
+              </div>
+
+              <div class="location">
+                <p>-</p>
+              </div>
+
+              
+              </div>
+
+            </div>
+        </div>
+
+
+<hr>
+ <script>       
+function dayandnight(){
+ var currentTime = new Date().getHours();
+if (7 <= currentTime && currentTime < 20) {
+        document.body.style.backgroundImage = "url('morn.jpg')";  
+        document.body.style.backgroundRepeat ="no-repeat";
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center";
+        document.body.style.backgroundAttachment = "fixed";
+       
+}
+else {
+        document.body.style.backgroundImage = "url('nighttime.jpg')";   
+        document.body.style.backgroundRepeat ="no-repeat";
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center";
+        document.body.style.backgroundAttachment = "fixed";
+}   
+}
+</script>
+
+
+<script type ="text/javascript">
+dayandnight();
+</script> 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+
+
+</html>
